@@ -13,9 +13,12 @@ engine.setProperty('rate', 150)  # Speed of speech
 engine.setProperty('volume', 1)  # Volume level (0.0 to 1.0)
 
 def text_to_audio(text):
-    # Speak the given text
-    engine.say(text)
-    engine.runAndWait()
+    def speak():
+        engine.say(text)
+        engine.runAndWait()
+    
+    threading.Thread(target=speak, daemon=True).start()
+
 
 def capture_and_process():
     while True:
